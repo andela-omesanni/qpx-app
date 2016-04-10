@@ -68,7 +68,7 @@ md-whiteframe.md-default-theme.md-whiteframe-2dp(layout="column")
       .md-padding(layout layout-align="center center")
         md-button.md-primary.md-raised(flex="30" ng-click="searchFlights()" ng-disabled="searchForm.$invalid || noPassengerSpecified || searching") {{ searching ? 'searching ...' : 'Search' }}
 
-  section#results-container.spacer.xlarge(flex="90" flex-sm="100" flex-md="100")
+  section#results-container.spacer.xlarge(flex="90" flex-sm="100" flex-md="100" ng-if="flights")
     div.md-whiteframe-1dp  
       md-toolbar#header
         .md-toolbar-tools

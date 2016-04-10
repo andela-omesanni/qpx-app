@@ -6,7 +6,7 @@ md-dialog.md-content-overflow(aria-label="flight details" flex="70" flex-lg="85"
         i.mdi.mdi-close
   
   md-dialog-content.md-padding
-    md-table-container(hide-sm)
+    md-table-container(hide-md hide-sm)
       table(md-table)
         thead(md-head)
           tr
@@ -35,7 +35,7 @@ md-dialog.md-content-overflow(aria-label="flight details" flex="70" flex-lg="85"
             td#price-td(md-cell rowspan="{{flight.slice[0].segment.length}}" ng-show="$first") 
               h3 {{ formatPriceAsMoney(flight.saleTotal) }}
 
-    #mobile-details-container(hide-gt-sm layout="column")
+    #mobile-details-container(hide-lg hide-gt-lg layout="column")
       md-toolbar.md-whiteframe-1dp.text-center
         h3(flex) {{ formatPriceAsMoney(flight.saleTotal) }}
 

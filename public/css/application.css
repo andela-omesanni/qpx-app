@@ -41,7 +41,6 @@ md-list md-list-item {
   font-size: 14px;
 }
 md-list md-list-item.md-3-line:hover {
-  //cursor: pointer;
   background-color: #f7f7f7;
 }
 md-list md-list-item .top-padding {
@@ -62,7 +61,6 @@ table.md-table td#price-td {
   border-left: 1px solid #eee;
 }
 table.md-table td.carrier > div {
-  //padding: 0 0 0 24px !important;
   width: 160px;
 }
 table.md-table td.date-time > div {
@@ -77,7 +75,6 @@ table.md-table td.date-time > div {
 }
 #results-container {
   border-radius: 4px;
-  //margin-left: 6px;
 }
 #results-container #header {
   border-radius: 3px 3px 0 0;

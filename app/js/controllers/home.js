@@ -45,35 +45,37 @@ angular.module('qpx.controllers')
       };
 
       /**
-       * Gets the name of city where an airport is located at
-       * @param  {string} airportCode the 3 letter airport code e.g LHR
-       * @return {string} the name of city where the airport is located e.g. London
-       */
-      $scope.getCityName = function(airportCode) {console.log(airportCode);
-        // gets the abrreviated city name e.g. AMS
-        var cityShort = _.where($scope.flights.trips.data.airport, {code: airportCode})[0].city;
-
-        // gets full city name e.g. Amsterdam
-        var cityName = _.where($scope.flights.trips.data.city, {code: cityShort})[0].name; 
-
-        return cityName;
-      };
-
-      /**
        * Opens up modal dialog that shows the details of a flight
        * @param  {object} evt javascript click event
        * @param  {object} flight particular flight in which we want to view extended details
        */
       $scope.launchFlightDetailsDialog = function(evt, flight) {
         $mdDialog.show({
-          preserveScope: true,
-          scope: $scope,
-          controller: function($scope) {
+          locals: { 
+            flights: $scope.flights, 
+            formatPriceAsMoney: $scope.formatPriceAsMoney 
+          },
+          controller: function($scope, flights, formatPriceAsMoney) {
             $scope.flight = flight;
-            console.log(flight);
+            $scope.formatPriceAsMoney = formatPriceAsMoney;
 
             $scope.close = function() {
               $mdDialog.hide();
+            };
+
+            /**
+             * Gets the name of city where an airport is located at
+             * @param  {string} airportCode the 3 letter airport code e.g LHR
+             * @return {string} the name of city where the airport is located e.g. London
+             */
+            $scope.getCityName = function(airportCode) {
+              // gets the abrreviated city name e.g. AMS
+              var cityShort = _.where(flights.trips.data.airport, {code: airportCode})[0].city;
+
+              // gets full city name e.g. Amsterdam
+              var cityName = _.where(flights.trips.data.city, {code: cityShort})[0].name; 
+
+              return cityName;
             };
 
             /**
@@ -82,7 +84,7 @@ angular.module('qpx.controllers')
              * @return {string} full name of flight carrier e.g. British Airways
              */
             $scope.getCarrierName = function(abbreviation) {
-              var carrierName = _.where($scope.flights.trips.data.carrier, {code: abbreviation})[0].name;
+              var carrierName = _.where(flights.trips.data.carrier, {code: abbreviation})[0].name;
               return carrierName;
             };
           },
@@ -115,7 +117,6 @@ angular.module('qpx.controllers')
         delete payload.request.destination;
 
         $http.post(url, payload).success(function(resp) {
-          console.log(resp);
           $scope.searching = false;
           $scope.flights = resp;
 
