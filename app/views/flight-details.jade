@@ -1,0 +1,68 @@
+md-dialog.md-content-overflow(aria-label="flight details" flex="70" flex-lg="85" flex-sm="100" flex-md="95")
+  md-toolbar#flight-details-toolbar.md-whiteframe-1dp
+    .md-toolbar-tools(layout layout-align="start end")
+      h2(flex) Flight Details
+      md-button.md-icon-button(aria-label="close" ng-click="close()")
+        i.mdi.mdi-close
+  
+  md-dialog-content.md-padding
+    md-table-container(hide-sm)
+      table(md-table)
+        thead(md-head)
+          tr
+            th.md-padding(md-column colspan="5") OUTBOUND
+        
+        tbody(md-body)
+          tr(md-row ng-repeat="segment in flight.slice[0].segment")
+            td.date-time(md-cell)
+              div(layout="column" flex)
+                span {{ segment.leg[0].departureTime | date: 'HH:mm' }}
+                span {{ segment.leg[0].departureTime | date: 'dd MMM' }}
+
+            td.date-time(md-cell)
+              div(layout="column" flex)
+                span {{ segment.leg[0].arrivalTime | date: 'HH:mm' }}
+                span {{ segment.leg[0].arrivalTime | date: 'dd MMM' }}
+
+            td(md-cell) {{ getCityName(segment.leg[0].origin) }} {{ '(' + segment.leg[0].origin + ')' }}
+            td(md-cell) {{ getCityName(segment.leg[0].destination) }} {{ '(' + segment.leg[0].destination + ')' }}
+
+            td.carrier(md-cell)
+              div(layout="column" flex)
+                span {{ segment.flight.carrier + segment.flight.number }}
+                span {{ getCarrierName(segment.flight.carrier) }}
+
+            td#price-td(md-cell rowspan="{{flight.slice[0].segment.length}}" ng-show="$first") 
+              h3 {{ formatPriceAsMoney(flight.saleTotal) }}
+
+    #mobile-details-container(hide-gt-sm layout="column")
+      md-toolbar.md-whiteframe-1dp.text-center
+        h3(flex) {{ formatPriceAsMoney(flight.saleTotal) }}
+
+      md-whiteframe.md-whiteframe-1dp.md-padding(flex ng-repeat="segment in flight.slice[0].segment" ng-class="{'spacer': !$first}" layout="column")
+        div(layout flex)
+          span.label(flex) Departure date
+          span.label-value(flex) {{ segment.leg[0].departureTime | date: fullDateWithTime }}
+
+        div(layout flex)
+          span.label(flex) Arrival date
+          span.label-value(flex) {{ segment.leg[0].arrivalTime | date: fullDateWithTime }}
+
+        div(layout flex)
+          span.label(flex) Origin
+          span.label-value(flex) {{ getCityName(segment.leg[0].origin) }} {{ '(' + segment.leg[0].origin + ')' }}
+
+        div(layout flex)
+          span.label(flex) Destination
+          span.label-value(flex) {{ getCityName(segment.leg[0].destination) }} {{ '(' + segment.leg[0].destination + ')' }}
+
+        div(layout flex)
+          span.label(flex) Flight Number
+          span.label-value(flex) {{ segment.flight.carrier + segment.flight.number }}
+
+        div(layout flex)
+          span.label(flex) Carrier
+          span.label-value(flex) {{ getCarrierName(segment.flight.carrier) }}
+
+
+

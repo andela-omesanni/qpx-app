@@ -1,0 +1,106 @@
+md-whiteframe.md-default-theme.md-whiteframe-2dp(layout="column")
+  md-toolbar(layout)
+    .md-toolbar-tools(layout-align="center center")
+      span QPX FLIGHT SEARCH
+
+#outer-container.md-padding
+  div(flex="90" flex-sm="100" flex-md="100")
+    md-card
+      md-card-header
+        md-card-header-text(layout layout-align="center center")
+          span Search Flights
+
+      md-card-content
+        form(name="searchForm" novalidate)
+          div(layout layout-gt="row" layout-md="column" layout-sm="column")
+            md-input-container.md-block(flex)
+              label From
+              input(type="text" name="origin" ng-model="request.origin" placeholder="BER" required maxlength="3"  capitalize)
+
+              .validation-messages(ng-messages='searchForm.origin.$error')
+                div(ng-message='required' ng-if="!searchForm.origin.$pristine") required
+
+            md-input-container.md-block(flex)
+              label To
+              input(type="text" name="destination" ng-model="request.destination" placeholder="NYC" required maxlength="3"  capitalize)
+
+              .validation-messages(ng-messages='searchForm.destination.$error')
+                div(ng-message='required' ng-if="!searchForm.destination.$pristine") required
+
+          div(layout layout-gt="row" layout-md="column" layout-sm="column")   
+            md-input-container.md-block(flex)
+              label Maximum Price
+              input(type="text" name="maxPrice" ng-model="request.maxPrice" placeholder="e.g. USD200.00" ng-required="request.maxPrice.length" ng-pattern="pricePattern" capitalize)
+              .validation-messages(ng-messages='searchForm.maxPrice.$error')
+                div(ng-message='required') required
+                div(ng-message='pattern') Enter price in correct format e.g. GBP200
+
+            md-datepicker.md-block(name="date" ng-model="request.date" md-placeholder="Start date" required md-min-date="minDate" flex)
+
+          div(layout layout-align="start left" layout-wrap)
+            md-input-container.md-block(flex="20" flex-sm="50")
+              label Adults
+              md-select(ng-model="request.passengers.adultCount")
+                md-option(ng-repeat="n in ranges" value="{{n}}") {{n}}
+
+            md-input-container.md-block(flex="20" flex-sm="50")
+              label Infants(lap)
+              md-select(ng-model="request.passengers.infantInLapCount")
+                md-option(ng-repeat="n in ranges" value="{{n}}") {{n}}
+
+            md-input-container.md-block(flex="20" flex-sm="50")
+              label Infants(seat)
+              md-select(ng-model="request.passengers.infantInSeatCount")
+                md-option(ng-repeat="n in ranges" value="{{n}}") {{n}}
+
+            md-input-container.md-block(flex="20" flex-sm="50")
+              label Children
+              md-select(ng-model="request.passengers.childCount")
+                md-option(ng-repeat="n in ranges" value="{{n}}") {{n}}
+
+            md-input-container.md-block(flex="20" flex-sm="50")
+              label Seniors
+              md-select(ng-model="request.passengers.seniorCount")
+                md-option(ng-repeat="n in ranges" value="{{n}}") {{n}}
+
+            .validation-messages(ng-if="noPassengerSpecified=!validatePassengers()") At least one adult or senior passenger must be specified
+
+      .md-padding(layout layout-align="center center")
+        md-button.md-primary.md-raised(flex="30" ng-click="searchFlights()" ng-disabled="searchForm.$invalid || noPassengerSpecified || searching") {{ searching ? 'searching ...' : 'Search' }}
+
+  section#results-container.spacer.xlarge(flex="90" flex-sm="100" flex-md="100")
+    div.md-whiteframe-1dp  
+      md-toolbar#header
+        .md-toolbar-tools
+          span Results
+      
+      .md-padding
+        .text-center(ng-if="!flights.trips.tripOption.length && !searching")
+          h3 No results
+
+        div(ng-if="searching" layout="row" layout-align="space-around")
+          md-progress-circular.md-accent(md-mode="indeterminate")
+
+        md-list
+          md-list-item.md-3-line(ng-repeat='flight in flights.trips.tripOption | limitTo: resultsLimit' layout layout-sm="column" md-ink-ripple)       
+            div#total-price(flex ng-init="stops=flight.slice[0].segment.length-1")
+              h3 {{ formatPriceAsMoney(flight.saleTotal) }}
+
+            div#departure-and-arrival.top-padding(flex layout="column")
+              span 
+                strong Depart: 
+                | {{ flight.slice[0].segment[0].leg[0].departureTime | date: fullDateWithTime }}
+              span 
+                strong Arrive: &nbsp;
+                | {{ flight.slice[0].segment[stops].leg[0].arrivalTime  | date: fullDateWithTime }}
+
+            div#stops.top-padding(flex layout="column")
+              span {{stops}} stop{{ stops === 1 ? '' : 's' }} &nbsp;
+                a(href="#" ng-click="launchFlightDetailsDialog($event, flight)") details
+
+            md-divider
+
+        .md-padding(layout layout-align="center center" ng-show="resultsLimit < flights.trips.tripOption.length")
+          md-button.md-raised(flex="15" flex-sm="50" flex-md="30" ng-click="resultsLimit = resultsLimit + 15") Show more
+              
+  

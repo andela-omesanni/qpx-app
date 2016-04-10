@@ -1,0 +1,24 @@
+{
+  "name": "qpx-app",
+  "dependencies": {
+    "angular": "^1.4.7",
+    "angular-animate": "1.4.7",
+    "angular-aria": "latest",
+    "angular-cookies": "latest",
+    "lodash": "~3.0.0",
+    "moment": "latest",
+    "angular-ui-router": "~0.2.11",
+    "jquery": "~2.1.1",
+    "angular-material-data-table": "~0.10.3",
+    "angular-material": "0.12.0-rc1",
+    "angular-messages": "^1.5.3",
+    "toastr": "^2.1.2",
+    "mdi": "^1.5.54"
+  },
+  "resolutions": {
+    "angular": "1.4.7",
+    "angular-material": "0.12.0-rc1",
+    "angular-animate": "1.4.7",
+    "mdi": "~1.2.65"
+  }
+}
