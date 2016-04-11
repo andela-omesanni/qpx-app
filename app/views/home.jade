@@ -18,14 +18,14 @@ md-whiteframe.md-default-theme.md-whiteframe-2dp(layout="column")
               input(type="text" name="origin" ng-model="request.origin" placeholder="BER" required maxlength="3"  capitalize)
 
               .validation-messages(ng-messages='searchForm.origin.$error')
-                div(ng-message='required' ng-if="!searchForm.origin.$pristine") required
+                div(ng-message='required') IATA 3-character city/airport code required
 
             md-input-container.md-block(flex)
               label To
               input(type="text" name="destination" ng-model="request.destination" placeholder="NYC" required maxlength="3"  capitalize)
 
               .validation-messages(ng-messages='searchForm.destination.$error')
-                div(ng-message='required' ng-if="!searchForm.destination.$pristine") required
+                div(ng-message='required') IATA 3-character city/airport code required
 
           div(layout layout-gt="row" layout-md="column" layout-sm="column")   
             md-input-container.md-block(flex)
