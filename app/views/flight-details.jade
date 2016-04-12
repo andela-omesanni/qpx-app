@@ -42,11 +42,11 @@ md-dialog.md-content-overflow(aria-label="flight details" flex="70" flex-lg="85"
       md-whiteframe.md-whiteframe-1dp.md-padding(flex ng-repeat="segment in flight.slice[0].segment" ng-class="{'spacer': !$first}" layout="column")
         div(layout flex)
           span.label(flex) Departure date
-          span.label-value(flex) {{ segment.leg[0].departureTime | date: fullDateWithTime }}
+          span.label-value(flex) {{ segment.leg[0].departureTime | date: 'EEE, MMM dd yyyy hh:mm a' }}
 
         div(layout flex)
           span.label(flex) Arrival date
-          span.label-value(flex) {{ segment.leg[0].arrivalTime | date: fullDateWithTime }}
+          span.label-value(flex) {{ segment.leg[0].arrivalTime | date: 'EEE, MMM dd yyyy hh:mm a' }}
 
         div(layout flex)
           span.label(flex) Origin
