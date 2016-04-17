@@ -41,7 +41,7 @@ angular.module('qpx.controllers')
         var currency = price.substring(0, 3);
         var amount = price.substring(3, price.length);
 
-        return currency + Number(amount).toLocaleString();
+        return currency + numeral(Number(amount)).format('0,0.00');
       };
 
       /**
