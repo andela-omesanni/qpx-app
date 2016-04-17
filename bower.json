@@ -13,7 +13,8 @@
     "angular-material": "0.12.0-rc1",
     "angular-messages": "^1.5.3",
     "toastr": "^2.1.2",
-    "mdi": "^1.5.54"
+    "mdi": "^1.5.54",
+    "numeral": "^1.5.3"
   },
   "resolutions": {
     "angular": "1.4.7",
